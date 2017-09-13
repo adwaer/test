@@ -69,12 +69,13 @@ namespace backend.WebApi.Middlewares
             if (username.Equals(LoginController.Login, StringComparison.CurrentCultureIgnoreCase)
                 && password.Equals(LoginController.Pwd))
             {
-                return false;
+                SetPrincipal(new GenericPrincipal(new GenericIdentity(username), new string[0]));
+                return true;
             }
 
             SetPrincipal(new GenericPrincipal(new GenericIdentity(username), new string[0]));
 
-            return true;
+            return false;
         }
     }
 }

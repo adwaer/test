@@ -1,0 +1,35 @@
+<div class="login-page">
+    <div class="row">
+        <div class="col col-xl-6 col-lg-12">
+            <div class="card mb-3" *ngFor="let group of data">
+                <div class="card-header card-info card-inverse">
+                    <span class="card-title">{{group.group}}</span>
+                </div>
+                <div class="card-block">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>ФИО</th>
+                                <th>Должность</th>
+                                <th>Телефон</th>
+                                <th>Почта</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let item of group.items; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{item.fio}}</td>
+                                <td>{{item.position}}</td>
+                                <td>{{item.phone}}</td>
+                                <td>{{item.position}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

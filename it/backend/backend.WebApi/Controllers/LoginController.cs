@@ -25,7 +25,7 @@ namespace backend.WebApi.Controllers
                 return Ok();
             }
 
-            return BadRequest("Неверная пара логин/пароль");
+            return BadRequest("Неверная комбинация логина и пароля");
         }
     }
 }

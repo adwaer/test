@@ -12,11 +12,11 @@ namespace backend.Dal.Migrations
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        Fio = c.String(),
-                        Phone = c.String(),
-                        Email = c.String(),
-                        Division = c.String(),
-                        Position = c.String(),
+                        Fio = c.String(nullable: false),
+                        Phone = c.String(nullable: false),
+                        Email = c.String(nullable: false),
+                        Division = c.String(nullable: false),
+                        Position = c.String(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             

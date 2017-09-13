@@ -10,6 +10,7 @@ namespace backend.WebApi.Controllers
     /// <summary>
     /// address info api
     /// </summary>
+    [Authorize]
     public class AbInfoController : ApiController
     {
         private readonly IQueryBuilder _queryBuilder;
@@ -42,11 +43,18 @@ namespace backend.WebApi.Controllers
         /// <returns></returns>
         public async Task<IHttpActionResult> Get(int id)
         {
-            var result = await _queryBuilder
-                .For<AddressBook>()
-                .WithAsync(new GenericCriterion<int>(id));
+            try
+            {
+                var result = await _queryBuilder
+                    .For<AddressBook>()
+                    .WithAsync(new GenericCriterion<int>(id));
 
-            return Ok(result);
+                return Ok(result);
+            }
+            catch (InvalidOperationException)
+            {
+                return BadRequest("Запись не найдена");
+            }
         }
     }
 }

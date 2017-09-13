@@ -1,0 +1,4 @@
+<ul class="error" *ngIf="form.submitted || (element && element.touched)">
+    <li *ngIf="element.hasError('required')"> Обязательное поле </li>
+    <li *ngIf="element.hasError('email')"> Имейл не валиден </li>
+</ul>
