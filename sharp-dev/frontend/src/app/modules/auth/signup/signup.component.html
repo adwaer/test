@@ -1,0 +1,34 @@
+<div class="login-page" [@routerTransition]>
+    <div class="row">
+        <div class="col-md-4 push-md-4">
+            <img class="user-avatar" src="assets/images/logo.png" width="150px" />
+            <h1>Registration</h1>
+            <form role="form" (ngSubmit)="onSubmit()" #form="ngForm">
+                <app-loader [state]="isLoading"></app-loader>
+                <div class="form-content">
+                    <div class="form-group">
+                        <input type="text" name="name" [(ngModel)]="model.userName" class="form-control input-underline input-lg" placeholder="Full name" #name="ngModel" required>
+                        <app-validate [form]="form" [element]="form.controls.name"></app-validate>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="text" name="email" [(ngModel)]="model.email" class="form-control input-underline input-lg" placeholder="Email" #email="ngModel" required email>
+                        <app-validate [form]="form" [element]="form.controls.email"></app-validate>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="password" [(ngModel)]="model.password" class="form-control input-underline input-lg" placeholder="Password" password="true" minlength="6" required>
+                        <app-validate [form]="form" [element]="form.controls.password"></app-validate>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="password" name="repeatPassword" [(ngModel)]="repeatPassword" class="form-control input-underline input-lg" placeholder="Password repeat" password="true" required>
+                        <app-validate [form]="form" [element]="form.controls.repeatPassword"></app-validate>
+                    </div>
+                </div>
+                <button type="submit" class="btn rounded-btn"> Ok </button>
+                <a class="btn rounded-btn" [routerLink]="['/login']">Login</a>
+            </form>
+        </div>
+    </div>
+</div>

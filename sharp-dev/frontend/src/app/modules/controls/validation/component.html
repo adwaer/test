@@ -1,0 +1,5 @@
+<ul class="error" *ngIf="form.submitted || (element && element.touched)">
+    <li *ngIf="element.hasError('required')"> The field is required </li>
+    <li *ngIf="element.hasError('email')"> Email format invalid</li>
+    <li *ngIf="element.hasError('minlength')"> Insufficient field size </li>
+</ul>

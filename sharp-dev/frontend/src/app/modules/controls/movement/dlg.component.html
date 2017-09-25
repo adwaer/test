@@ -1,0 +1,29 @@
+<app-notify-error></app-notify-error>
+<app-loader [state]="isLoading"></app-loader>
+<form role="form" (ngSubmit)="sendMoney()" #form="ngForm">
+    <div class="modal-header">
+        <h4 class="modal-title">New Payment</h4>
+        <button type="button" class="close" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="form-group" ng2-auto-complete
+             [source]="searchUsers"
+             (valueChanged)="searchUserPatternChange($event, false)"
+             placeholder="enter users email">
+            <input type="text" name="email" [(ngModel)]="movementModel.targetEmail"
+                   class="form-control input-underline input-lg" placeholder="Target users email"
+                   #email="ngModel" required autocomplete="off"/>
+        </div>
+        <div class="form-group">
+            <input name="amount" type="number" class="form-control input-underline input-lg"
+                   [(ngModel)]="movementModel.amount" placeholder="Movement amount" #amount="ngModel" required/>
+            <app-validate [form]="form" [element]="form.controls.amount"></app-validate>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Ok</button>
+        <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
+    </div>
+</form>
