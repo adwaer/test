@@ -87,62 +87,6 @@ export class Client extends ApiBase {
     }
 
     /**
-     * Change balance
-     * @return OK
-     */
-    balance_Post(model: MovementViewModel): Observable<any> {
-        let url_ = this.baseUrl + "/Balance";
-        url_ = url_.replace(/[?&]$/, "");
-
-        const content_ = JSON.stringify(model);
-
-        let options_ = {
-            body: content_,
-            method: "post",
-            headers: new Headers({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            })
-        };
-
-        return this.http.request(url_, options_).flatMap((response_) => {
-            return this.transformResult(url_, response_, (r) => this.processBalance_Post(r));
-        }).catch((response_: any) => {
-            if (response_ instanceof Response) {
-                try {
-                    return this.transformResult(url_, response_, (r) => this.processBalance_Post(r));
-                } catch (e) {
-                    return <Observable<any>><any>Observable.throw(e);
-                }
-            } else
-                return <Observable<any>><any>Observable.throw(response_);
-        });
-    }
-
-    protected processBalance_Post(response: Response): Observable<any> {
-        const status = response.status;
-
-        let _headers: any = response.headers ? response.headers.toJSON() : {};
-        if (status === 200) {
-            const _responseText = response.text();
-            let result200: any = null;
-            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            if (resultData200) {
-                result200 = {};
-                for (let key in resultData200) {
-                    if (resultData200.hasOwnProperty(key))
-                        result200[key] = resultData200[key] !== undefined ? resultData200[key] : <any>null;
-                }
-            }
-            return Observable.of(result200);
-        } else if (status !== 200 && status !== 204) {
-            const _responseText = response.text();
-            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
-        }
-        return Observable.of<any>(<any>null);
-    }
-
-    /**
      * Validate login password pair
      * @model_login login
      * @model_password password
@@ -239,6 +183,125 @@ export class Client extends ApiBase {
     }
 
     protected processLogin_Post(response: Response): Observable<any> {
+        const status = response.status;
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200) {
+                result200 = {};
+                for (let key in resultData200) {
+                    if (resultData200.hasOwnProperty(key))
+                        result200[key] = resultData200[key] !== undefined ? resultData200[key] : <any>null;
+                }
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<any>(<any>null);
+    }
+
+    /**
+     * Get movements list
+     * @return OK
+     */
+    movements_Get(model: MovementsQueryCondition): Observable<any> {
+        let url_ = this.baseUrl + "/Movements?";
+        if (model.date !== undefined)
+            url_ += "model.date=" + encodeURIComponent(model.date ? "" + new Date(model.date).toJSON() : "null") + "&";
+        if (model.correspond !== undefined)
+            url_ += "model.correspond=" + encodeURIComponent("" + model.correspond) + "&";
+        if (model.amountFrom !== undefined)
+            url_ += "model.amountFrom=" + encodeURIComponent("" + model.amountFrom) + "&";
+        if (model.amountTo !== undefined)
+            url_ += "model.amountTo=" + encodeURIComponent("" + model.amountTo) + "&";
+        if (model.sortBy !== undefined)
+            url_ += "model.sortBy=" + encodeURIComponent("" + model.sortBy) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_ = {
+            method: "get",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.transformResult(url_, response_, (r) => this.processMovements_Get(r));
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.transformResult(url_, response_, (r) => this.processMovements_Get(r));
+                } catch (e) {
+                    return <Observable<any>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<any>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processMovements_Get(response: Response): Observable<any> {
+        const status = response.status;
+
+        let _headers: any = response.headers ? response.headers.toJSON() : {};
+        if (status === 200) {
+            const _responseText = response.text();
+            let result200: any = null;
+            let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+            if (resultData200) {
+                result200 = {};
+                for (let key in resultData200) {
+                    if (resultData200.hasOwnProperty(key))
+                        result200[key] = resultData200[key] !== undefined ? resultData200[key] : <any>null;
+                }
+            }
+            return Observable.of(result200);
+        } else if (status !== 200 && status !== 204) {
+            const _responseText = response.text();
+            return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+        }
+        return Observable.of<any>(<any>null);
+    }
+
+    /**
+     * Change balance
+     * @return OK
+     */
+    movements_Post(model: MovementViewModel): Observable<any> {
+        let url_ = this.baseUrl + "/Movements";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(model);
+
+        let options_ = {
+            body: content_,
+            method: "post",
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request(url_, options_).flatMap((response_) => {
+            return this.transformResult(url_, response_, (r) => this.processMovements_Post(r));
+        }).catch((response_: any) => {
+            if (response_ instanceof Response) {
+                try {
+                    return this.transformResult(url_, response_, (r) => this.processMovements_Post(r));
+                } catch (e) {
+                    return <Observable<any>><any>Observable.throw(e);
+                }
+            } else
+                return <Observable<any>><any>Observable.throw(response_);
+        });
+    }
+
+    protected processMovements_Post(response: Response): Observable<any> {
         const status = response.status;
 
         let _headers: any = response.headers ? response.headers.toJSON() : {};
@@ -372,51 +435,6 @@ export class Client extends ApiBase {
     }
 }
 
-/** Movement model */
-export class MovementViewModel implements IMovementViewModel {
-    /** amount */
-    amount: number;
-    /** target email */
-    targetEmail: string;
-
-    constructor(data?: IMovementViewModel) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(data?: any) {
-        if (data) {
-            this.amount = data["amount"];
-            this.targetEmail = data["targetEmail"];
-        }
-    }
-
-    static fromJS(data: any): MovementViewModel {
-        let result = new MovementViewModel();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["amount"] = this.amount;
-        data["targetEmail"] = this.targetEmail;
-        return data;
-    }
-}
-
-/** Movement model */
-export interface IMovementViewModel {
-    /** amount */
-    amount: number;
-    /** target email */
-    targetEmail: string;
-}
-
 /** login model */
 export class LoginViewModel implements ILoginViewModel {
     /** login */
@@ -513,6 +531,114 @@ export interface IRegViewModel {
     password: string;
 }
 
+export class MovementsQueryCondition implements IMovementsQueryCondition {
+    date: Date | undefined;
+    correspond: string | undefined;
+    amountFrom: number | undefined;
+    amountTo: number | undefined;
+    sortBy: MovementsQueryConditionSortBy | undefined;
+
+    constructor(data?: IMovementsQueryCondition) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.date = data["date"] ? new Date(data["date"].toString()) : <any>undefined;
+            this.correspond = data["correspond"];
+            this.amountFrom = data["amountFrom"];
+            this.amountTo = data["amountTo"];
+            this.sortBy = data["sortBy"];
+        }
+    }
+
+    static fromJS(data: any): MovementsQueryCondition {
+        let result = new MovementsQueryCondition();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["date"] = this.date ? this.date.toISOString() : <any>undefined;
+        data["correspond"] = this.correspond;
+        data["amountFrom"] = this.amountFrom;
+        data["amountTo"] = this.amountTo;
+        data["sortBy"] = this.sortBy;
+        return data;
+    }
+}
+
+export interface IMovementsQueryCondition {
+    date: Date | undefined;
+    correspond: string | undefined;
+    amountFrom: number | undefined;
+    amountTo: number | undefined;
+    sortBy: MovementsQueryConditionSortBy | undefined;
+}
+
+/** Movement model */
+export class MovementViewModel implements IMovementViewModel {
+    /** amount */
+    amount: number;
+    /** target email */
+    targetEmail: string;
+
+    constructor(data?: IMovementViewModel) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(data?: any) {
+        if (data) {
+            this.amount = data["amount"];
+            this.targetEmail = data["targetEmail"];
+        }
+    }
+
+    static fromJS(data: any): MovementViewModel {
+        let result = new MovementViewModel();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["amount"] = this.amount;
+        data["targetEmail"] = this.targetEmail;
+        return data;
+    }
+}
+
+/** Movement model */
+export interface IMovementViewModel {
+    /** amount */
+    amount: number;
+    /** target email */
+    targetEmail: string;
+}
+
+export enum SortBy {
+    Date = <any>"Date",
+    Name = <any>"Name",
+    Amount = <any>"Amount",
+}
+
+export enum MovementsQueryConditionSortBy {
+    Date = <any>"Date",
+    Name = <any>"Name",
+    Amount = <any>"Amount",
+}
+
 export class SwaggerException extends Error {
     message: string;
     status: number;
@@ -544,7 +670,10 @@ function throwException(message: string, status: number, response: string, heade
     }
     else {
         let errData = JSON.parse(response);
-        NotifyService.messagePublished$.emit({message: errData.exceptionMessage ? errData.exceptionMessage : errData.message, status});
+        NotifyService.messagePublished$.emit({
+            message: errData.exceptionMessage ? errData.exceptionMessage : errData.message,
+            status
+        });
         return Observable.throw(new SwaggerException(message, status, response, headers, null));
     }
 }

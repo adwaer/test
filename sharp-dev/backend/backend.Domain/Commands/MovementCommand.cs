@@ -6,7 +6,7 @@ namespace backend.Domain.Commands
     {
         public string Description { get; set; }
         public double Amount { get; set; }
-        public string MakeUserId { get; set; }
+        public string CorrespondentId { get; set; }
         public string UserId { get; set; }
     }
 }

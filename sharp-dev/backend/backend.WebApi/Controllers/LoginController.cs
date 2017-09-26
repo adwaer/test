@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Data.Entity.Infrastructure;
+using System.Linq;
 using System.Net.Http;
 using System.Security.Principal;
 using System.Threading;
@@ -12,6 +14,7 @@ using backend.Identity;
 using backend.WebApi.ViewModels;
 using In.Cqrs;
 using In.Cqrs.Query;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace backend.WebApi.Controllers
@@ -76,11 +79,24 @@ namespace backend.WebApi.Controllers
             }
 
             var userManager = Request.GetOwinContext().GetUserManager<CustomUserManager>();
-            var identityResult = await userManager.CreateAsync(new ApplicationUser
+            IdentityResult identityResult;
+
+            try
             {
-                UserName = model.UserName,
-                Email = model.Email
-            }, model.Password);
+                identityResult = await userManager.CreateAsync(new ApplicationUser
+                {
+                    UserName = model.UserName,
+                    Email = model.Email
+                }, model.Password);
+            }
+            catch (DbUpdateException ex)
+            {
+                if (ex.ToString().Contains("with unique index 'UX_Email'"))
+                {
+                    return BadRequest("The email is busy");
+                }
+                throw;
+            }
 
             if (identityResult.Succeeded)
             {

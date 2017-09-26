@@ -62,6 +62,7 @@
     <Compile Include="UserByEmailQuery.cs" />
     <Compile Include="UsersSearchQuery.cs" />
     <Compile Include="UserQuery.cs" />
+    <Compile Include="MovementsQuery.cs" />
     <Compile Include="WorkingDayQuery.cs" />
   </ItemGroup>
   <ItemGroup>

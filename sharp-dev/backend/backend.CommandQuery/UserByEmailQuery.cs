@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using backend.Domain.Entities;
 using backend.Domain.QueryConditions;
@@ -19,6 +20,12 @@ namespace backend.CommandQuery
 
         public async Task<ApplicationUser> Ask(UserByEmailQueryCondition criterion)
         {
+            var indexOf = criterion.Email.IndexOf(" (", StringComparison.Ordinal);
+            if (indexOf > 0)
+            {
+                criterion.Email = criterion.Email.Substring(indexOf + 2, criterion.Email.IndexOf(")", indexOf, StringComparison.Ordinal) - indexOf - 2);
+            }
+
             var user = await _context.Query<ApplicationUser>()
                 .FirstOrDefaultAsync(x => x.Email == criterion.Email);
 

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {Client, MovementViewModel} from '../../../services/api/swagger';
 import {Helpers} from '../../../services/api/apihelpers';
@@ -13,6 +13,7 @@ import {NotifyService} from '../../inceptors/errors/notifyService';
 })
 export class MovementDlgComponent implements OnInit {
 
+    public static messagePublished$: EventEmitter<boolean> = new EventEmitter();
     public isLoading = true;
     public searchUsers = [];
     public movementModel: MovementViewModel = new MovementViewModel();
@@ -23,17 +24,18 @@ export class MovementDlgComponent implements OnInit {
 
     async ngOnInit() {
         this.movementModel.amount = 0;
-        await this.searchUserPatternChange('');
+        await this.valuechange('');
         this.isLoading = false;
     }
 
-    async searchUserPatternChange(newVal) {
+    async valuechange(newVal) {
         newVal = newVal || '';
-        if (newVal !== this.movementModel.targetEmail) {
-            const response = await Helpers.withAsync(this.client.userSearch_Get(newVal));
-            this.searchUsers = response.data;
-            this.movementModel.targetEmail = newVal;
-        }
+        const response = await Helpers.withAsync(this.client.userSearch_Get(newVal));
+        this.searchUsers = response.data;
+    }
+
+    async searchUserPatternChange(newVal) {
+        this.movementModel.targetEmail = newVal;
     }
 
     public close() {
@@ -57,7 +59,8 @@ export class MovementDlgComponent implements OnInit {
 
         this.isLoading = true;
         try {
-            await Helpers.withAsync(this.client.balance_Post(this.movementModel));
+            await Helpers.withAsync(this.client.movements_Post(this.movementModel));
+            MovementDlgComponent.messagePublished$.emit();
         }
         finally {
             this.isLoading = false;

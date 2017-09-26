@@ -22,16 +22,17 @@ namespace backend.CommandQuery
 
         public async Task<UsersSearchQueryResult> Ask(UsersSearchQueryCondition criterion)
         {
-            var indexOf = criterion.Pattern.IndexOf(" (", StringComparison.Ordinal);
-            if (indexOf > 0)
-            {
-                criterion.Pattern = criterion.Pattern.Substring(0, indexOf);
-            }
-
             var usersQuery = _context.Query<ApplicationUser>()
                 .Where(x => x.Email != criterion.ExcludeEmail);
+
             if (!string.IsNullOrEmpty(criterion.Pattern))
             {
+                var indexOf = criterion.Pattern.IndexOf(" (", StringComparison.Ordinal);
+                if (indexOf > 0)
+                {
+                    criterion.Pattern = criterion.Pattern.Substring(0, indexOf);
+                }
+
                 usersQuery = usersQuery.Where(x => x.UserName.StartsWith(criterion.Pattern));
             }
 

@@ -8,6 +8,15 @@ namespace backend.Dal.Migrations
         public override void Up()
         {
             CreateTable(
+                "dbo.FrequentlyPwds",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Value = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.MessageHistories",
                 c => new
                     {
@@ -110,34 +119,37 @@ namespace backend.Dal.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         Amount = c.Double(nullable: false),
+                        BalanceAfter = c.Double(nullable: false),
                         Description = c.String(nullable: false),
                         UserId = c.String(maxLength: 128),
-                        MakeUserId = c.String(maxLength: 128),
-                        WorkingDayId = c.String(),
-                        WorkingDay_Id = c.Int(),
+                        CorrespondentId = c.String(maxLength: 128),
+                        WorkingDayId = c.Int(nullable: false),
+                        CreateDate = c.DateTime(nullable: false),
+                        UpdateDate = c.DateTime(nullable: false),
+                        Identity = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.MakeUserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.CorrespondentId)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .ForeignKey("dbo.WorkingDays", t => t.WorkingDay_Id)
+                .ForeignKey("dbo.WorkingDays", t => t.WorkingDayId, cascadeDelete: true)
                 .Index(t => t.UserId)
-                .Index(t => t.MakeUserId)
-                .Index(t => t.WorkingDay_Id);
+                .Index(t => t.CorrespondentId)
+                .Index(t => t.WorkingDayId);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.WorkingDays", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Movements", "WorkingDay_Id", "dbo.WorkingDays");
+            DropForeignKey("dbo.Movements", "WorkingDayId", "dbo.WorkingDays");
             DropForeignKey("dbo.Movements", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Movements", "MakeUserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Movements", "CorrespondentId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropIndex("dbo.Movements", new[] { "WorkingDay_Id" });
-            DropIndex("dbo.Movements", new[] { "MakeUserId" });
+            DropIndex("dbo.Movements", new[] { "WorkingDayId" });
+            DropIndex("dbo.Movements", new[] { "CorrespondentId" });
             DropIndex("dbo.Movements", new[] { "UserId" });
             DropIndex("dbo.WorkingDays", "UX_USER_DATE");
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
@@ -155,6 +167,7 @@ namespace backend.Dal.Migrations
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.MessageHistories");
+            DropTable("dbo.FrequentlyPwds");
         }
     }
 }

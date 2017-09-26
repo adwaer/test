@@ -1,4 +1,74 @@
 <app-header></app-header>
 <section class="main-container">
+    <div class="row">
+        <div class="col col-lg-12">
+            <div class="card mb-3" *ngIf="!isLoading">
+                <div class="card-header">
+                    <h2>Movements</h2>
+                    <form role="form" (ngSubmit)="onSubmit()" #form="ngForm">
+                        <div class="form-content form-inline">
+                            <div class="form-group">
+                                <input type="date" name="date" [(ngModel)]="criteria.date"
+                                       class="form-control input-underline input-lg" placeholder="Date"
+                                       #date="ngModel">
+                            </div>
+                            <div class="form-group">
+                                <input name="amountFrom" type="text" [(ngModel)]="criteria.amountFrom"
+                                       class="form-control input-underline input-lg" placeholder="Amount from"
+                                       #amountFrom="ngModel">
+                            </div>
+                            <div class="form-group">
+                                <input name="amountTo" type="text" [(ngModel)]="criteria.amountTo"
+                                       class="form-control input-underline input-lg" placeholder="Amount to"
+                                       #amountTo="ngModel">
+                            </div>
+                            <div class="form-group" ng2-auto-complete
+                                 [source]="searchUsers"
+                                 (valueChanged)="searchUserPatternChange($event, true)"
+                                 placeholder="enter users email">
+                                <input type="text" name="email" [(ngModel)]="criteria.correspond"
+                                       (ngModelChange)="valuechange($event)"
+                                       class="form-control input-underline input-lg" placeholder="Correspondent"
+                                       #email="ngModel" autocomplete="off"/>
+                            </div>
+                            <div class="form-group">
+                                <select class="form-control input-underline input-lg" [(ngModel)]="criteria.sortBy" name="sortby">
+                                    <option value=""></option>
+                                    <option *ngFor="let c of ['Date', 'Name', 'Amount']" [ngValue]="c">{{c}}</option>
+                                </select>
+                            </div>
 
+                            <div class="form-group">
+                                <button type="submit" class="btn rounded-btn"> Apply</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-block">
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Date</th>
+                                <th>Сorrespondent</th>
+                                <th>Amount</th>
+                                <th>Resulting balance</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let movement of movements; let i = index">
+                                <td>{{i+1}}</td>
+                                <td>{{movement.date | date: 'medium'}}</td>
+                                <td>{{movement.correspondent}}</td>
+                                <td>{{movement.amount}} PW</td>
+                                <td>{{movement.resultBalance}} PW</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>

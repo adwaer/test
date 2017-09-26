@@ -1,7 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {routerTransition} from '../../router.animations';
 import {Helpers} from '../../services/api/apihelpers';
-import {Client} from '../../services/api/swagger';
+import {Client, MovementsQueryCondition} from '../../services/api/swagger';
+import {MovementDlgComponent} from '../controls/movement/dlg.component';
+import {NgForm} from '@angular/forms';
 
 @Component({
     selector: 'app-main',
@@ -10,37 +12,59 @@ import {Client} from '../../services/api/swagger';
     animations: [routerTransition()]
 })
 export class MainComponent implements OnInit {
-    public data: any = [];
+    public movements: any = [];
+    public criteria: MovementsQueryCondition = new MovementsQueryCondition();
+
     public isLoading = true;
+    @ViewChild('form') form: NgForm;
+
+    public searchUsers = [];
 
     constructor(private client: Client) {
     }
 
     async ngOnInit() {
+
+        await this.fetch();
+        await this.valuechange('');
+
+        MovementDlgComponent.messagePublished$.subscribe(async () => {
+            await this.fetch();
+        });
+    }
+
+    async valuechange(newVal) {
+        newVal = newVal || '';
+        const response = await Helpers.withAsync(this.client.userSearch_Get(newVal));
+        this.searchUsers = response.data;
+    }
+
+    async searchUserPatternChange(newVal) {
+        this.criteria.correspond = newVal;
+    }
+
+    private async fetch() {
         try {
-            // const results = await Helpers.withAsync(this.client.abInfo_Get());
-            // const groups = this.groupBy(results, 'division');
-            // for (const group in groups) {
-            //     const items = groups[group];
-            //     this.data.push({
-            //         group,
-            //         items
-            //     });
-            // }
-            //
-            // console.log('this.data', this.data);
+            const result = await Helpers.withAsync(this.client.movements_Get(this.criteria))
+
+            const m = result.data;
+            for (let i = 0; i < m.length; i++) {
+                m[i].date += 'Z';
+            }
+
+            this.movements = m;
+
         }
         finally {
             this.isLoading = false;
         }
     }
 
-    private groupBy(array, prop) {
-        return array.reduce(function (groups, item) {
-            const val = item[prop];
-            groups[val] = groups[val] || [];
-            groups[val].push(item);
-            return groups;
-        }, {});
+    async onSubmit() {
+        if (this.form.invalid) {
+            return;
+        }
+
+        await this.fetch();
     }
 }

@@ -62,11 +62,14 @@
     <Compile Include="Entities\MessageHistory.cs" />
     <Compile Include="Entities\WorkingDay.cs" />
     <Compile Include="Entities\Movement.cs" />
+    <Compile Include="Enums\MovementSortBy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryConditions\MovementsQueryCondition.cs" />
     <Compile Include="QueryConditions\ValidatePwdFromFrequentlListCondition.cs" />
     <Compile Include="QueryConditions\UserByIdQueryCondition.cs" />
     <Compile Include="QueryConditions\UserByEmailQueryCondition.cs" />
     <Compile Include="QueryConditions\UsersSearchQueryCondition.cs" />
+    <Compile Include="QueryResults\MovementsQueryResult.cs" />
     <Compile Include="QueryResults\UsersSearchQueryResult.cs" />
     <Compile Include="QueryResults\UserDataQueryResult.cs" />
     <Compile Include="TimeTrackableEntity.cs" />

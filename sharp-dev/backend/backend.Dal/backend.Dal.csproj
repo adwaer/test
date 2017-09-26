@@ -55,13 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Ctx.cs" />
-    <Compile Include="Migrations\201709180121521_init.cs" />
-    <Compile Include="Migrations\201709180121521_init.Designer.cs">
-      <DependentUpon>201709180121521_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201709250929166_pwd_blacklist.cs" />
-    <Compile Include="Migrations\201709250929166_pwd_blacklist.Designer.cs">
-      <DependentUpon>201709250929166_pwd_blacklist.cs</DependentUpon>
+    <Compile Include="Migrations\201709251331515_init.cs" />
+    <Compile Include="Migrations\201709251331515_init.Designer.cs">
+      <DependentUpon>201709251331515_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,11 +81,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201709180121521_init.resx">
-      <DependentUpon>201709180121521_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201709250929166_pwd_blacklist.resx">
-      <DependentUpon>201709250929166_pwd_blacklist.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201709251331515_init.resx">
+      <DependentUpon>201709251331515_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

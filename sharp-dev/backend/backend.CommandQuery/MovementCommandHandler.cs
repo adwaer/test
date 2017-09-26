@@ -26,15 +26,15 @@ namespace backend.CommandQuery
         {
             var workingDay = await _queryBuilder.For<WorkingDay>()
                 .WithAsync(new GenericCriterion<string>(message.UserId));
-            
+
             // need to lock only own customer balance
             lock (Sync)
             {
-                if (workingDay == null)
+                if (workingDay == null || workingDay.Date != DateTime.UtcNow.Date)
                 {
                     workingDay = new WorkingDay
                     {
-                        Balance = 0,
+                        Balance = workingDay?.Balance ?? 0,
                         UserId = message.UserId,
                         Date = DateTime.UtcNow.Date,
                         Movements = new List<Movement>()
@@ -46,13 +46,17 @@ namespace backend.CommandQuery
                 {
                     throw new Exception("The balance is to low");
                 }
-                workingDay.Movements.Add(new Movement
+
+                var movement = new Movement
                 {
                     Amount = message.Amount,
-                    MakeUserId = message.MakeUserId,
+                    CorrespondentId = message.CorrespondentId,
                     UserId = message.UserId,
-                    Description = message.Description
-                });
+                    Description = message.Description,
+                    BalanceAfter = workingDay.Balance
+                };
+                movement.Update();
+                workingDay.Movements.Add(movement);
 
                 AsyncHelpers.RunSync(() => _storage.Save(workingDay));
             }
