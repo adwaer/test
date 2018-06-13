@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="7.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fix.Business\Fix.Business.csproj">
+      <Project>{C8BE065D-38D2-4393-BAF8-19170255D83E}</Project>
+      <Name>Fix.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fix.Dal\Fix.Dal.csproj">
+      <Project>{7150FA06-C389-4A94-815D-3A8918C67536}</Project>
+      <Name>Fix.Dal</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>
