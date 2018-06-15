@@ -8,6 +8,7 @@ using Fix.Infrastructure;
 using Fix.Infrastructure.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query.ResultOperators.Internal;
 
 namespace Fix.Dal
 {

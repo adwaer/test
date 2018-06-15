@@ -1,8 +1,10 @@
-﻿using AutoMapper;
+﻿using System;
+using AutoMapper;
 using Fix.Business;
 using Fix.Dal;
 using Fix.Domain;
 using Fix.Infrastructure;
+using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -32,13 +34,15 @@ namespace Fix.WebApp
 				.AddDefaultTokenProviders();
 
 			// Add application services.
-			services.AddTransient<WebNodesService>();
 			services.AddTransient<IDataSetUow, ApplicationDbContext>();
+			services.AddSingleton<WebNodesService>();
+
+			var connString = Configuration.GetConnectionString("hangfire.sqlserver");
+			services.AddHangfire(x => x.UseSqlServerStorage(connString));
 
 			services.AddMvc();
-			
+
 			services.AddAutoMapper(typeof(Startup));
-			
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,6 +69,12 @@ namespace Fix.WebApp
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+
+			app.UseHangfireDashboard("/hangfire", new DashboardOptions());
+			app.UseHangfireServer();
+
+			var hangfireActivator = (WebNodesService) app.ApplicationServices.GetService(typeof(WebNodesService));
+			hangfireActivator.ActivateJobs();
 		}
 	}
 }

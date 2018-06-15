@@ -7,7 +7,7 @@ using Fix.Infrastructure.Domain;
 
 namespace Fix.Infrastructure
 {
-	public interface IDataSetUow
+	public interface IDataSetUow : IDisposable
 	{
 		IQueryable<T> Query<T>() where T : class, IHasKey;
 

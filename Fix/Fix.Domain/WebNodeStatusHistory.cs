@@ -11,5 +11,6 @@ namespace Fix.Domain
 		public bool IsAvailable { get; set; }
 		public DateTime Date { get; set; }
 		public WebNode Node { get; set; } 
+		public int NodeId { get; set; }
 	}
 }

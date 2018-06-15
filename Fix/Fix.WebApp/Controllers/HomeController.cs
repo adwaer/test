@@ -1,32 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
+using AutoMapper.QueryableExtensions;
+using Fix.Domain;
+using Fix.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Fix.WebApp.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Fix.WebApp.Controllers
 {
 	public class HomeController : Controller
 	{
-		public IActionResult Index()
+		private readonly IDataSetUow _dataSetUow;
+
+		public HomeController(IDataSetUow dataSetUow)
 		{
-			return View();
+			_dataSetUow = dataSetUow;
 		}
 
-		public IActionResult About()
+		public async Task<IActionResult> Index()
 		{
-			ViewData["Message"] = "Your application description page.";
+			var nodes = await _dataSetUow
+				.Query<WebNode>()
+				.ProjectTo<WebNodeViewModel>()
+				.ToArrayAsync();
 
-			return View();
-		}
-
-		public IActionResult Contact()
-		{
-			ViewData["Message"] = "Your contact page.";
-
-			return View();
+			return View(nodes);
 		}
 
 		public IActionResult Error()

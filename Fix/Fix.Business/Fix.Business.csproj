@@ -1,7 +1,30 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
-    <PropertyGroup>
-        <TargetFramework>netcoreapp2.0</TargetFramework>
-    </PropertyGroup>
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Hangfire.Core, Version=1.6.19.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>C:\Users\adwae\.nuget\packages\hangfire.core\1.6.19\lib\netstandard1.3\Hangfire.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer, Version=1.6.19.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>C:\Users\adwae\.nuget\packages\hangfire.sqlserver\1.6.19\lib\netstandard1.3\Hangfire.SqlServer.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fix.Dal\Fix.Dal.csproj">
+      <Project>{7150FA06-C389-4A94-815D-3A8918C67536}</Project>
+      <Name>Fix.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fix.Domain\Fix.Domain.csproj">
+      <Project>{52152E1D-9027-4E1F-A2C4-09DB782D0B19}</Project>
+      <Name>Fix.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fix.Infrastructure\Fix.Infrastructure.csproj">
+      <Project>{96A93577-CAA0-43F1-A27E-27FBA2DDBBC7}</Project>
+      <Name>Fix.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0" />
+  </ItemGroup>
 </Project>

@@ -31,7 +31,7 @@ namespace Fix.WebApp.Controllers
 		{
 			var nodes = await _dataSetUow
 				.Query<WebNode>()
-				.ProjectTo<WebNodeViewModel>()
+				.ProjectTo<WebNodeEditViewModel>()
 				.ToArrayAsync();
 
 			return View(nodes);
@@ -43,7 +43,7 @@ namespace Fix.WebApp.Controllers
 			var node = await _dataSetUow
 				.Query<WebNode>()
 				.Where(webNode => webNode.Id == id)
-				.ProjectTo<WebNodeViewModel>()
+				.ProjectTo<WebNodeEditViewModel>()
 				.SingleAsync();
 
 			return View(node);
@@ -57,7 +57,7 @@ namespace Fix.WebApp.Controllers
 		// POST: Nodes/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Create(WebNodeViewModel model)
+		public async Task<ActionResult> Create(WebNodeEditViewModel model)
 		{
 			try
 			{
@@ -80,7 +80,7 @@ namespace Fix.WebApp.Controllers
 			var node = await _dataSetUow
 				.Query<WebNode>()
 				.Where(webNode => webNode.Id == id)
-				.ProjectTo<WebNodeViewModel>()
+				.ProjectTo<WebNodeEditViewModel>()
 				.SingleAsync();
 
 			return View(node);
@@ -89,7 +89,7 @@ namespace Fix.WebApp.Controllers
 		// POST: Nodes/Edit/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<ActionResult> Edit(int id, WebNodeViewModel model)
+		public async Task<ActionResult> Edit(int id, WebNodeEditViewModel model)
 		{
 			try
 			{
@@ -116,7 +116,7 @@ namespace Fix.WebApp.Controllers
 			var node = await _dataSetUow
 				.Query<WebNode>()
 				.Where(webNode => webNode.Id == id)
-				.ProjectTo<WebNodeViewModel>()
+				.ProjectTo<WebNodeEditViewModel>()
 				.SingleAsync();
 
 			return View(node);
