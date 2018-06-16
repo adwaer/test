@@ -4,7 +4,7 @@ using Fix.Domain;
 using Fix.Infrastructure;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Fix.Business
+namespace Fix.NangFire
 {
 	public class NodeCheckJob
 	{

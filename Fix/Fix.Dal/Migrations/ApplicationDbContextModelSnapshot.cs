@@ -96,7 +96,7 @@ namespace Fix.Dal.Migrations
 
                     b.Property<bool>("IsAvailable");
 
-                    b.Property<int?>("NodeId");
+                    b.Property<int>("NodeId");
 
                     b.HasKey("Id");
 
@@ -217,7 +217,8 @@ namespace Fix.Dal.Migrations
                 {
                     b.HasOne("Fix.Domain.WebNode", "Node")
                         .WithMany("Histories")
-                        .HasForeignKey("NodeId");
+                        .HasForeignKey("NodeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

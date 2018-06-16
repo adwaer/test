@@ -1,9 +1,10 @@
-﻿using System;
-using AutoMapper;
-using Fix.Business;
+﻿using AutoMapper;
 using Fix.Dal;
 using Fix.Domain;
 using Fix.Infrastructure;
+using Fix.Infrastructure.Services;
+using Fix.NangFire;
+using Fix.Services;
 using Hangfire;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -35,10 +36,14 @@ namespace Fix.WebApp
 
 			// Add application services.
 			services.AddTransient<IDataSetUow, ApplicationDbContext>();
+			services.AddTransient<INodesService, NodesService>();
 			services.AddSingleton<WebNodesService>();
 
-			var connString = Configuration.GetConnectionString("hangfire.sqlserver");
-			services.AddHangfire(x => x.UseSqlServerStorage(connString));
+			if (WithHf)
+			{
+				var connString = Configuration.GetConnectionString("hangfire.sqlserver");
+				services.AddHangfire(x => x.UseSqlServerStorage(connString));
+			}
 
 			services.AddMvc();
 
@@ -58,7 +63,7 @@ namespace Fix.WebApp
 			{
 				app.UseExceptionHandler("/Home/Error");
 			}
-
+			
 			app.UseStaticFiles();
 
 			app.UseAuthentication();
@@ -70,11 +75,16 @@ namespace Fix.WebApp
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
 
-			app.UseHangfireDashboard("/hangfire", new DashboardOptions());
-			app.UseHangfireServer();
+			if (WithHf)
+			{
+				app.UseHangfireDashboard("/hangfire", new DashboardOptions());
+				app.UseHangfireServer();
 
-			var hangfireActivator = (WebNodesService) app.ApplicationServices.GetService(typeof(WebNodesService));
-			hangfireActivator.ActivateJobs();
+				var hangfireActivator = (WebNodesService) app.ApplicationServices.GetService(typeof(WebNodesService));
+				hangfireActivator.ActivateJobs();
+			}
 		}
+
+        private bool WithHf => Configuration["RunHangfire"] == "true";
 	}
 }

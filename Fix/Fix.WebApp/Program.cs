@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Fix.Business;
 using Fix.Dal;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -17,12 +11,12 @@ namespace Fix.WebApp
 	{
 		public static void Main(string[] args)
 		{
-			var host = BuildWebHost(args);
-			
+			var host = BuildWebHost1(args, true);
+
 			using (var scope = host.Services.CreateScope())
 			{
 				var services = scope.ServiceProvider;
- 
+
 				try
 				{
 					SeedData.Initialize(services);
@@ -33,13 +27,19 @@ namespace Fix.WebApp
 					logger.LogError(ex, "An error occurred seeding the DB.");
 				}
 			}
-			
+
 			host.Run();
 		}
 
-		public static IWebHost BuildWebHost(string[] args) =>
+		private static IWebHost BuildWebHost1(string[] args, bool runHf) =>
 			WebHost.CreateDefaultBuilder(args)
 				.UseStartup<Startup>()
+				.UseSetting("RunHangfire", runHf ? "true" : "false")
 				.Build();
+
+		public static IWebHost BuildWebHost(string[] args)
+		{
+			return BuildWebHost1(args, false);
+		}
 	}
 }

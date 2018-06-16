@@ -15,13 +15,21 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fix.Business\Fix.Business.csproj">
-      <Project>{C8BE065D-38D2-4393-BAF8-19170255D83E}</Project>
-      <Name>Fix.Business</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Fix.Dal\Fix.Dal.csproj">
       <Project>{7150FA06-C389-4A94-815D-3A8918C67536}</Project>
       <Name>Fix.Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fix.Infrastructure.Services\Fix.Infrastructure.Services.csproj">
+      <Project>{C705C89D-BC5A-40A2-B573-BB93518A4DD7}</Project>
+      <Name>Fix.Infrastructure.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fix.NangFire\Fix.NangFire.csproj">
+      <Project>{F4F8D1DF-F7A6-4E02-8E2B-33E3430CD216}</Project>
+      <Name>Fix.NangFire</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fix.Services\Fix.Services.csproj">
+      <Project>{F85A4B6F-5DAF-4702-8BDC-D09A9A054B8C}</Project>
+      <Name>Fix.Services</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

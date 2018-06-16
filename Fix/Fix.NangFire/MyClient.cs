@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Fix.Business
+namespace Fix.NangFire
 {
 	class MyClient : WebClient
 	{

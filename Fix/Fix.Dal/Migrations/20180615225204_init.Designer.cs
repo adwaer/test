@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Fix.Dal.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20180613230738_init")]
+    [Migration("20180615225204_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,7 +98,7 @@ namespace Fix.Dal.Migrations
 
                     b.Property<bool>("IsAvailable");
 
-                    b.Property<int?>("NodeId");
+                    b.Property<int>("NodeId");
 
                     b.HasKey("Id");
 
@@ -219,7 +219,8 @@ namespace Fix.Dal.Migrations
                 {
                     b.HasOne("Fix.Domain.WebNode", "Node")
                         .WithMany("Histories")
-                        .HasForeignKey("NodeId");
+                        .HasForeignKey("NodeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

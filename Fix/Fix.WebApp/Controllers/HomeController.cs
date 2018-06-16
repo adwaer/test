@@ -1,31 +1,23 @@
 ﻿using System.Diagnostics;
 using System.Threading.Tasks;
-using AutoMapper.QueryableExtensions;
-using Fix.Domain;
-using Fix.Infrastructure;
+using Fix.Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Fix.WebApp.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace Fix.WebApp.Controllers
 {
 	public class HomeController : Controller
 	{
-		private readonly IDataSetUow _dataSetUow;
+		private readonly INodesService _nodesService;
 
-		public HomeController(IDataSetUow dataSetUow)
+		public HomeController(INodesService nodesService)
 		{
-			_dataSetUow = dataSetUow;
+			_nodesService = nodesService;
 		}
 
 		public async Task<IActionResult> Index()
 		{
-			var nodes = await _dataSetUow
-				.Query<WebNode>()
-				.ProjectTo<WebNodeViewModel>()
-				.ToArrayAsync();
-
-			return View(nodes);
+			return View(await _nodesService.GetAll<WebNodeViewModel>());
 		}
 
 		public IActionResult Error()

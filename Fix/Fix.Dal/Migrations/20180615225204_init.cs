@@ -177,7 +177,7 @@ namespace Fix.Dal.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     IsAvailable = table.Column<bool>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
-                    NodeId = table.Column<int>(nullable: true)
+                    NodeId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -187,7 +187,7 @@ namespace Fix.Dal.Migrations
                         column: x => x.NodeId,
                         principalTable: "WebNodes",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

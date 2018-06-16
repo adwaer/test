@@ -1,0 +1,11 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fix.Domain\Fix.Domain.csproj">
+      <Project>{52152E1D-9027-4E1F-A2C4-09DB782D0B19}</Project>
+      <Name>Fix.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

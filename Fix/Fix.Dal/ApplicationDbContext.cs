@@ -8,7 +8,6 @@ using Fix.Infrastructure;
 using Fix.Infrastructure.Domain;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.ResultOperators.Internal;
 
 namespace Fix.Dal
 {
@@ -24,9 +23,10 @@ namespace Fix.Dal
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+            builder.Entity<WebNode>()
+                .HasMany(b => b.Histories)
+                .WithOne(a => a.Node)
+                .OnDelete(DeleteBehavior.Cascade);
         }
 
         public IQueryable<T> Query<T>() where T : class, IHasKey

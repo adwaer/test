@@ -6,7 +6,7 @@ using Fix.Infrastructure;
 using Hangfire;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Fix.Business
+namespace Fix.NangFire
 {
 	public class WebNodesService
 	{

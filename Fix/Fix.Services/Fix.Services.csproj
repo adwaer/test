@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fix.Domain\Fix.Domain.csproj">
+      <Project>{52152E1D-9027-4E1F-A2C4-09DB782D0B19}</Project>
+      <Name>Fix.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fix.Infrastructure.Services\Fix.Infrastructure.Services.csproj">
+      <Project>{C705C89D-BC5A-40A2-B573-BB93518A4DD7}</Project>
+      <Name>Fix.Infrastructure.Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Fix.Infrastructure\Fix.Infrastructure.csproj">
+      <Project>{96A93577-CAA0-43F1-A27E-27FBA2DDBBC7}</Project>
+      <Name>Fix.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="AutoMapper, Version=7.0.0.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005">
+      <HintPath>C:\Users\adwae\.nuget\packages\automapper\7.0.0\lib\netstandard2.0\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.EntityFrameworkCore, Version=2.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60">
+      <HintPath>C:\Users\adwae\.nuget\packages\microsoft.entityframeworkcore\2.1.0\lib\netstandard2.0\Microsoft.EntityFrameworkCore.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
