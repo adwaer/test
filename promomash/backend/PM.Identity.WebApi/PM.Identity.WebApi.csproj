@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="5.0.1" />
+        <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.HttpsPolicy" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
+        <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.1" />
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+        <PackageReference Include="SilentNotary.Infrastructure.Cqrs" Version="0.0.19" />
+        <PackageReference Include="SilentNotary.Infrastructure.Cqrs.EFCore" Version="0.0.18" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="4.0.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="4.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PM.CommandHandlers\PM.CommandHandlers.csproj" />
+      <ProjectReference Include="..\PM.Configuration\PM.Configuration.csproj" />
+      <ProjectReference Include="..\PM.Identity.Dal\PM.Identity.Dal.csproj" />
+      <ProjectReference Include="..\PM.Infrastructure.Dal\PM.Infrastructure.Dal.csproj" />
+      <ProjectReference Include="..\PM.Models\PM.Models.csproj" />
+      <ProjectReference Include="..\PM.QueryHandlers\PM.QueryHandlers.csproj" />
+    </ItemGroup>
+
+</Project>

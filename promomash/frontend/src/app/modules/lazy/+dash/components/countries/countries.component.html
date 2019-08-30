@@ -1,0 +1,50 @@
+<mat-card class="countries">
+  <form [formGroup]="countryForm" (ngSubmit)="onSubmit()">
+    <mat-card-title> Step 2</mat-card-title>
+    <mat-card-content >
+      <mat-form-field appearance="fill">
+        <mat-label>Country</mat-label>
+        <mat-select formControlName="country" placeholder="Select country" (ngModelChange)="filterChange$.next()">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let country of countries$ | async" [value]="country">
+            {{country.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <div class="icon-error">
+            <div class="error-container">
+              <span *ngIf="countryForm.get('country').hasError('required')"> Required field </span>
+            </div>
+          </div>
+        </mat-error>
+        <mat-icon matSuffix>country</mat-icon>
+        <mat-hint>Country is required field</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Province</mat-label>
+        <mat-select formControlName="province" placeholder="Select province">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let province of provinces$ | async" [value]="province">
+            {{province.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error>
+          <div class="icon-error">
+            <div class="error-container">
+              <span *ngIf="countryForm.get('province').hasError('required')"> Required field </span>
+            </div>
+          </div>
+        </mat-error>
+        <mat-icon matSuffix>province</mat-icon>
+        <mat-hint>Province is required field</mat-hint>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="actions">
+        <button mat-raised-button color="accent" type="submit">Save</button>
+      </div>
+    </mat-card-actions>
+  </form>
+</mat-card>

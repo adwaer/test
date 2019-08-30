@@ -1,0 +1,69 @@
+<mat-card class="login">
+  <mat-spinner *ngIf="isLoading$ | async; else form"></mat-spinner>
+</mat-card>
+
+<ng-template #form>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" #formDir="ngForm">
+    <mat-card-title> Step 1</mat-card-title>
+    <mat-card-content>
+
+      <div class="server_error"> {{serverError$ | async}} </div>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Login</mat-label>
+        <input autofocus matInput type="email" formControlName="email"/>
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-hint>Login must a valid email</mat-hint>
+        <mat-error>
+          <div class="icon-error">
+            <div class="error-container">
+              <span *ngIf="loginForm.get('email').hasError('required')"> Required field </span>
+              <span *ngIf="loginForm.get('email').hasError('email')"> Not a valid email </span>
+            </div>
+          </div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input autofocus matInput type="password" formControlName="password"/>
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-hint>Password must contain min 1 digit and min 1 uppercase letter</mat-hint>
+        <mat-error>
+          <div class="icon-error">
+            <div class="error-container">
+              <span *ngIf="loginForm.get('password').hasError('required')"> Required field </span>
+              <span *ngIf="loginForm.get('password').hasError('pattern')"> Invalid password format </span>
+            </div>
+          </div>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill">
+        <mat-label>Confirm password</mat-label>
+        <input autofocus matInput type="password" formControlName="confirmPass"/>
+        <mat-icon matSuffix>password</mat-icon>
+        <mat-hint>Confirm password must be the same with password</mat-hint>
+        <mat-error>
+          <div class="icon-error">
+            <div class="error-container">
+              <span *ngIf="loginForm.get('confirmPass').hasError('required')"> Required field </span>
+              <span *ngIf="loginForm.get('confirmPass').hasError('compare')"> Passwords do not match </span>
+            </div>
+          </div>
+        </mat-error>
+      </mat-form-field>
+
+      <div class="agree" [ngClass]="{ 'error': formDir.submitted && loginForm.get('termsAcc').invalid }">
+        <mat-checkbox formControlName="termsAcc" required> Agree to work for food </mat-checkbox>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <div class="actions">
+        <button mat-raised-button color="accent" type="submit">Go to step 2</button>
+      </div>
+    </mat-card-actions>
+
+  </form>
+</ng-template>

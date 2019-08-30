@@ -1,0 +1,26 @@
+@import '~@angular/material/_theming.scss'
+$app-warn: mat-palette($mat-pink)
+$warn: mat-color($app-warn)
+
+.login
+  width: 20vw
+
+  .mat-spinner
+    margin: 0 auto
+
+  .server_error
+    color: $warn
+    text-align: center
+
+  .mat-form-field
+    width: 100%
+
+  .agree
+    text-align: center
+    margin: 10px
+
+    &.error
+      color: $warn
+
+  .actions
+    text-align: center
