@@ -34,13 +34,13 @@ namespace PM.CommandHandlers
                 Email = message.Email
             };
 
-            return new UserAggregate(customer)
+            return await new UserAggregate(customer)
                 .GenerateSalt()
                 .OnSuccess(async aggregate =>
                 {
                     var result = await _uow.UserManager.CreateAsync(aggregate.Customer, message.Password);
                     if (!result.Succeeded)
-                        return Result.Fail(String.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
+                        return Result.Fail(string.Join(Environment.NewLine, result.Errors.Select(e => e.Description)));
 
                     await _uow.SaveChangesAsync();
                     return Result.Ok(aggregate);

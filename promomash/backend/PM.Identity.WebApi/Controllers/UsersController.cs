@@ -1,12 +1,10 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using CSharpFunctionalExtensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PM.Domain.Exceptions;
 using PM.Domain.UserContext.Commands;
 using PM.Domain.UserContext.Queries;
-using PM.Identity.WebApi.Configuration;
 using PM.Identity.WebApi.Models;
 using SilentNotary.Common;
 using SilentNotary.Cqrs.Queries;
@@ -47,7 +45,7 @@ namespace PM.Identity.WebApi.Controllers
         {
             var result = await CreateUserCommand
                 .Create(createAccountRequest.Email, createAccountRequest.Password, createAccountRequest.ConfirmPassword)
-                .OnSuccess(async user => await _messageSender.SendAsync(user), true)
+                .OnSuccess(async user => await _messageSender.SendAsync(user))
                 .OnSuccess(async () =>
                     {
                         var token = await _queryBuilder.For<UserTokenQueryResult>()
