@@ -1,3 +1,3 @@
 cd frontend
-npm i
+call npm i
 npm start
