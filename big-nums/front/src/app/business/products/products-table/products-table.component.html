@@ -1,0 +1,53 @@
+<div class="mat-elevation-z8 products">
+  <mat-toolbar color="primary">
+    <span>Product list</span>
+    <span class="example-spacer"></span>
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" (click)="add()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <app-loader *ngIf="loading$ | async"></app-loader>
+  <table mat-table [dataSource]="dataSource" class="products__table">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Price</th>
+      <td mat-cell *matCellDef="let element"> {{element.price}} </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element" width="80px">
+        <button mat-icon-button class="example-icon" aria-label="edit button" (click)="edit(element)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button class="example-icon" aria-label="delete button" (click)="delete(element.id, element.name)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+
+  <ng-container *ngIf="dataSource.filters$ | async as filters">
+    <mat-paginator [length]="dataSource.totalCount$ | async"
+                   [pageSize]="filters.pageSize"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   (page)="dataSource.onPageChange($event)">
+    </mat-paginator>
+  </ng-container>
+
+</div>

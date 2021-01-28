@@ -1,0 +1,47 @@
+<div class="product_add">
+  <h1 mat-dialog-title> Add new product</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="form" novalidate>
+    <div mat-dialog-content>
+      <app-loader *ngIf="loading$ | async"></app-loader>
+
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Name</mat-label>
+          <input autofocus matInput type="text" formControlName="name"/>
+          <mat-icon matSuffix>name</mat-icon>
+          <mat-hint>Name is required and min length is 2 symbols</mat-hint>
+          <mat-error>
+            <div class="icon-error">
+              <div class="error-container" *ngIf="form.get('name') as field">
+                <span *ngIf="field.hasError('required')"> Required field </span>
+                <span *ngIf="field.hasError('minlength')"> Min length is 2 symbols </span>
+              </div>
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <mat-form-field appearance="fill">
+          <mat-label>Price</mat-label>
+          <input matInput type="number" formControlName="price"/>
+          <mat-icon matSuffix>monetization_on</mat-icon>
+          <mat-hint>Price is required and min value is 1</mat-hint>
+          <mat-error>
+            <div class="icon-error">
+              <div class="error-container" *ngIf="form.get('price') as field">
+                <span *ngIf="field.hasError('required')"> Required field </span>
+                <span *ngIf="field.hasError('min')"> Min value is 1 </span>
+              </div>
+            </div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div mat-dialog-actions>
+      <button type="submit" mat-raised-button color="accent"> Save</button>
+      <button type="button" mat-button mat-dialog-close>Close</button>
+    </div>
+  </form>
+</div>

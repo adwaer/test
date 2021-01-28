@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net5.0</TargetFramework>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    </PropertyGroup>
+    
+    <ItemGroup>
+        <PackageReference Include="In.Infrastructure.Common" Version="1.0.27" />
+        <PackageReference Include="In.Infrastructure.Cqrs.Command.Simple" Version="1.0.27" />
+        <PackageReference Include="In.Infrastructure.Cqrs.Query.Simple" Version="1.0.27" />
+        <PackageReference Include="In.Infrastructure.DataAccess.EfCore" Version="1.0.27" />
+        <PackageReference Include="In.Infrastructure.DataMapping.Automapper" Version="1.0.27" />
+        <PackageReference Include="In.Infrastructure.FunctionalCSharp" Version="1.0.27" />
+        <PackageReference Include="In.Infrastructure.DDD" Version="1.0.27" />
+        <PackageReference Include="In.Infrastructure.Web" Version="1.0.27" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.11">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+    </ItemGroup>
+    
+    <ItemGroup>
+      <ProjectReference Include="..\BN.CommandHandlers\BN.CommandHandlers.csproj" />
+      <ProjectReference Include="..\BN.Dal\BN.Dal.csproj" />
+      <ProjectReference Include="..\BN.Domain\BN.Domain.csproj" />
+    </ItemGroup>
+
+</Project>

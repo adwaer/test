@@ -1,0 +1,11 @@
+﻿{
+  "profiles": {
+    "BN.Api": {
+      "commandName": "Project",
+      "dotnetRunMessages": "true",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}
