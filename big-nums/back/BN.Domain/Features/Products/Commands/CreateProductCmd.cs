@@ -8,7 +8,7 @@ namespace BN.Domain.Features.Products.Commands
         public string Name { get; }
         public decimal Price { get; }
 
-        public CreateProductCmd(string name, decimal price)
+        private CreateProductCmd(string name, decimal price)
         {
             Name = name;
             Price = price;
