@@ -1,0 +1,17 @@
+<div class="main">
+  <div class="main__search">
+    <mat-form-field>
+      <mat-label>Search</mat-label>
+      <input type="text" autocomplete="off" matInput (input)="setSearch($event)">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <app-loading *ngIf="isLoading$ | async"></app-loading>
+
+  <div class="main__photos">
+    <ng-container *ngFor="let photo of photos$ | async">
+      <app-photo-card [photo]="photo"></app-photo-card>
+    </ng-container>
+  </div>
+</div>

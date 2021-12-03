@@ -7,7 +7,6 @@ import {AlertState} from './state/alert.state';
 import {NgxsModule} from '@ngxs/store';
 import {environment} from '../../environments/environment';
 import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
-import {HTTP_INTERCEPTORS} from '@angular/common/http';
 import {NotificationsComponent} from './components/notifications/notifications.component';
 import {LayoutComponent} from './components/layout/layout.component';
 

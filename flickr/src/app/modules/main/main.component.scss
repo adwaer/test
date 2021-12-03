@@ -1,0 +1,22 @@
+:host {
+  width: 100%;
+  position: relative;
+
+  .main {
+    &__search {
+      display: flex;
+      flex-direction: row-reverse;
+      margin: 0 10px;
+    }
+
+    &__photos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      app-photo-card {
+        max-width: 300px;
+      }
+    }
+  }
+}
