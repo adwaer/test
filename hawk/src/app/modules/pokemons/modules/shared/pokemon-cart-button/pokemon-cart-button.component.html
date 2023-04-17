@@ -1,0 +1,10 @@
+<button
+  *ngIf="isInCart$ | async; else addToCartTmpl"
+  (click)="removeFromCart()"
+  mat-raised-button color="accent"
+> Remove from cart
+</button>
+
+<ng-template #addToCartTmpl>
+  <button mat-raised-button color="primary" (click)="addToCart()">Add to cart</button>
+</ng-template>

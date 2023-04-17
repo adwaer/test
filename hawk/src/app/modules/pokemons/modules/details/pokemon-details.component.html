@@ -1,0 +1,63 @@
+<div class="pokemon-details">
+  <mat-progress-bar
+    *ngIf="isLoading$ | async; else content"
+    mode="indeterminate"
+  ></mat-progress-bar>
+
+</div>
+
+<ng-template #content>
+  <ng-container *ngIf="data$ | async as data">
+    <ng-container *ngIf="images$ | async as images">
+      <div class="pokemon-details__images">
+        <div class="pokemon-details__images__avatar">
+          <div *ngIf="images.avatars[0] as img">
+            <img [attr.src]="img">
+          </div>
+        </div>
+        <div class="pokemon-details__images__other">
+          <div *ngFor="let img of images.others; let i = index">
+            <img [attr.src]="img" [attr.alt]="i">
+          </div>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="pokemon-details__stats">
+      <div class="pokemon-details__stats__common">
+        <div>Price:</div>
+        <div>{{price$ | async}}$</div>
+        <div>Name:</div>
+        <div>{{data.name}}</div>
+        <div>Base exp:</div>
+        <div>{{data.base_experience}}</div>
+        <div>Weight:</div>
+        <div>{{data.weight}}</div>
+        <div>Height:</div>
+        <div>{{data.height}}</div>
+      </div>
+
+      <table>
+        <tr>
+          <th>stat</th>
+          <th>base state</th>
+          <th>effort</th>
+        </tr>
+
+        <tr *ngFor="let stat of data.stats">
+          <td>{{stat.stat.name}}</td>
+          <td>{{stat.base_stat}}</td>
+          <td>{{stat.effort}}</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="pokemon-details__actions">
+      <app-pokemon-cart-button
+        [id]="data.id"
+        [name]="data.name"
+        [price]="(price$ | async)!"
+      ></app-pokemon-cart-button>
+    </div>
+  </ng-container>
+</ng-template>

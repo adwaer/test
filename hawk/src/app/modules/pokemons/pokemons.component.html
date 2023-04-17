@@ -1,0 +1,17 @@
+<div class="pokemons">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button mat-button aria-label="Show pokemons list" matTooltip="Show pokemons list" routerLink="/pokemons">
+        <span>Pokemon OMG!</span>
+      </button>
+      <span class="pokemons__spacer"></span>
+
+      <button mat-icon-button aria-label="Show cart" matTooltip="Show cart" routerLink="cart">
+        <mat-icon [matBadge]="cartCount$ | async" matBadgeColor="warn">shopping_cart</mat-icon>
+      </button>
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <router-outlet></router-outlet>
+</div>

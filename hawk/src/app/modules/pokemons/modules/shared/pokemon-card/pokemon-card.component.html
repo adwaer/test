@@ -1,0 +1,19 @@
+<mat-card [routerLink]="link">
+  <div class="shadow">
+    <div>
+      View details ->
+    </div>
+  </div>
+  <mat-card-header>
+    <div mat-card-avatar>
+      <button mat-mini-fab color="primary">
+        {{price}}$
+      </button>
+    </div>
+    <mat-card-title> {{title}} </mat-card-title>
+  </mat-card-header>
+  <img
+    mat-card-image
+    [attr.src]="'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/' + id + '.png'"
+    [attr.alt]="title">
+</mat-card>
