@@ -6,14 +6,12 @@ import {finalize, tap} from "rxjs";
 import {patch} from "@ngxs/store/operators";
 import {NamedAPIResource} from "@core/api/models/common";
 import {PokemonApiService} from "@core/api/pokemon-api.service";
-import {getRandomInt} from "@core/domain/getRandomInt";
 
 const pokemonUrl = 'https://pokeapi.co/api/v2/pokemon/';
 const pokemonUrlLen = pokemonUrl.length;
 const mapResponse = (data: NamedAPIResource[]): PokemonListItemStateModel[] => {
   return data.map(item => <PokemonListItemStateModel>({
     id: +item.url.substring(pokemonUrlLen, item.url.length - 1),
-    price: getRandomInt(),
     ...item
   }))
 }

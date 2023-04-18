@@ -11,9 +11,7 @@
     <ng-container *ngIf="images$ | async as images">
       <div class="pokemon-details__images">
         <div class="pokemon-details__images__avatar">
-          <div *ngIf="images.avatars[0] as img">
-            <img [attr.src]="img">
-          </div>
+          <img [attr.src]="avatar$ | async">
         </div>
         <div class="pokemon-details__images__other">
           <div *ngFor="let img of images.others; let i = index">
@@ -25,8 +23,6 @@
 
     <div class="pokemon-details__stats">
       <div class="pokemon-details__stats__common">
-        <div>Price:</div>
-        <div>{{price$ | async}}$</div>
         <div>Name:</div>
         <div>{{data.name}}</div>
         <div>Base exp:</div>
@@ -56,7 +52,6 @@
       <app-pokemon-cart-button
         [id]="data.id"
         [name]="data.name"
-        [price]="(price$ | async)!"
       ></app-pokemon-cart-button>
     </div>
   </ng-container>

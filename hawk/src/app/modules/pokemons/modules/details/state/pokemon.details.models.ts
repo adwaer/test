@@ -7,5 +7,5 @@ export interface PokemonDetailsStateModel {
 }
 
 export interface PokemonDetailsData extends Pokemon {
-  price: number;
+
 }

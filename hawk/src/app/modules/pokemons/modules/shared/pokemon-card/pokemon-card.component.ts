@@ -7,8 +7,7 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PokemonCardComponent {
-  @Input() link!: any[];
+  @Input() link!: string[];
   @Input() id!: number;
-  @Input() price!: number;
   @Input() title!: string;
 }

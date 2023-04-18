@@ -5,18 +5,12 @@
       mode="indeterminate"
     ></mat-progress-bar>
 
-    <div class="pokemon-list__items__card" *ngFor="let item of items$ | async">
-      <app-pokemon-card
-        [id]="item.id"
-        [price]="item.price"
-        [link]="[item.id]"
-        [title]="item.name"
-      ></app-pokemon-card>
-      <app-pokemon-cart-button
+    <div class="pokemon-list__items__card" *ngFor="let item of items$ | async; trackBy: trackById">
+      <app-pokemon-buy-card
         [id]="item.id"
         [name]="item.name"
-        [price]="item.price"
-      ></app-pokemon-cart-button>
+        [link]="[item.id + '']"
+      ></app-pokemon-buy-card>
     </div>
   </div>
 

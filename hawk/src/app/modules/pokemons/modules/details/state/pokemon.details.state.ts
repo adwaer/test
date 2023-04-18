@@ -6,7 +6,6 @@ import {PokemonListStateModel} from "../../list/state/pokemon.list.models";
 import {PokemonDetailsFetch} from "./pokemon.details.actions";
 import {patch} from "@ngxs/store/operators";
 import {finalize, tap} from "rxjs";
-import {getRandomInt} from "@core/domain/getRandomInt";
 
 @State<PokemonDetailsStateModel>({
   name: 'pokemon_details',
@@ -43,8 +42,7 @@ export class PokemonDetailsState {
             ...state,
             pokemonId: id,
             data: {
-              ...result,
-              price: getRandomInt()
+              ...result
             }
           })
         }),

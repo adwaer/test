@@ -9,7 +9,6 @@ export interface PokemonListStateModel {
 
 export interface PokemonListItemStateModel extends NamedAPIResource {
   id: number;
-  price: number;
 }
 
 export interface Paging {

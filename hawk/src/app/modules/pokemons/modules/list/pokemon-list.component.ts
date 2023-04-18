@@ -34,9 +34,13 @@ export class PokemonListComponent implements OnInit {
     this.store.dispatch(new PokemonListFetch(10, 0));
   }
 
-  setPage(pageModel: PageEvent) {
+  setPage(pageModel: PageEvent): void {
     const {pageSize, pageIndex} = pageModel;
 
     this.store.dispatch(new PokemonListFetch(pageSize, pageIndex * pageSize));
+  }
+
+  trackById(_: number, item: PokemonListItemStateModel): number {
+    return item.id;
   }
 }

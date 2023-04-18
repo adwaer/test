@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Action, Selector, State, StateContext} from "@ngxs/store";
-import {PokemonCartStateModel} from "./pokemon.cart.models";
+import {CartItem, PokemonCartStateModel} from "./pokemon.cart.models";
 import {PokemonCartAdd, PokemonCartRemove} from "./pokemon.cart.actions";
 
 @State<PokemonCartStateModel>({
@@ -21,6 +21,14 @@ export class PokemonCartState {
     return state.data.length;
   }
 
+  @Selector()
+  static cartItem(state: PokemonCartStateModel): (id: number) => CartItem | undefined {
+    return (id: number) => {
+      const items = state.data;
+      return items.find(item => item.id === id);
+    }
+  }
+
   @Action(PokemonCartAdd)
   public add(ctx: StateContext<PokemonCartStateModel>, {item}: PokemonCartAdd) {
     const {data} = ctx.getState();
@@ -36,12 +44,7 @@ export class PokemonCartState {
   public remove(ctx: StateContext<PokemonCartStateModel>, {itemId}: PokemonCartRemove) {
     const {data} = ctx.getState();
 
-    const result = [...data];
-    const removeIdx = result.findIndex(item => item.id === itemId);
-    if (removeIdx === -1) {
-      return;
-    }
-    result.splice(removeIdx, 1);
+    const result = data.filter(item => item.id !== itemId);
 
     ctx.setState({
       data: result
