@@ -1,4 +1,15 @@
 <div class="pokemon-list">
+  <ng-container *ngIf="total$ | async  as total">
+    <mat-paginator *ngIf="paging$ | async as paging"
+                   [length]="total"
+                   [pageSize]="paging.limit"
+                   [pageIndex]="paging.offset / paging.limit"
+                   [pageSizeOptions]="[5, 10, 25, 100]"
+                   (page)="setPage($event)"
+                   aria-label="Select page">
+    </mat-paginator>
+  </ng-container>
+
   <div class="pokemon-list__items">
     <mat-progress-bar
       *ngIf="isLoading$ | async"
@@ -13,15 +24,5 @@
       ></app-pokemon-buy-card>
     </div>
   </div>
-
-  <ng-container *ngIf="total$ | async  as total">
-    <mat-paginator *ngIf="paging$ | async as paging"
-                   [length]="total"
-                   [pageSize]="paging.limit"
-                   [pageSizeOptions]="[5, 10, 25, 100]"
-                   (page)="setPage($event)"
-                   aria-label="Select page">
-    </mat-paginator>
-  </ng-container>
 </div>
 

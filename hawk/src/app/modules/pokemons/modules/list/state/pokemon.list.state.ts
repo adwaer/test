@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Action, Selector, State, StateContext} from "@ngxs/store";
+import {Action, NgxsOnInit, Selector, State, StateContext} from "@ngxs/store";
 import {PokemonListItemStateModel, PokemonListStateModel} from "./pokemon.list.models";
 import {PokemonListFetch} from "./pokemon.list.actions";
 import {finalize, tap} from "rxjs";
@@ -29,7 +29,10 @@ const mapResponse = (data: NamedAPIResource[]): PokemonListItemStateModel[] => {
   }
 })
 @Injectable()
-export class PokemonListState {
+export class PokemonListState implements NgxsOnInit {
+  ngxsOnInit(ctx: StateContext<any>): void {
+    ctx.dispatch(new PokemonListFetch(10, 0));
+  }
   @Selector()
   static isLoading(state: PokemonListStateModel) {
     return state.isLoading;

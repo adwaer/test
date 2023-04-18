@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {
+  first,
   Observable,
 } from "rxjs";
 import {PageEvent} from "@angular/material/paginator";
@@ -14,7 +15,7 @@ import {PokemonListFetch} from "./state/pokemon.list.actions";
   styleUrls: ['./pokemon-list.component.sass'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PokemonListComponent implements OnInit {
+export class PokemonListComponent {
   @Select(PokemonListState.data)
   items$!: Observable<PokemonListItemStateModel[]>;
 
@@ -28,10 +29,6 @@ export class PokemonListComponent implements OnInit {
   isLoading$!: Observable<boolean>;
 
   constructor(private store: Store) {
-  }
-
-  ngOnInit(): void {
-    this.store.dispatch(new PokemonListFetch(10, 0));
   }
 
   setPage(pageModel: PageEvent): void {
